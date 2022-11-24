@@ -1,0 +1,101 @@
+body{
+	background: #86eee0;
+	margin: 0;
+	padding: 0;
+	font-family: "Times New Roman","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.nav-header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 63px;
+	font-size: 20px;
+	background: linear-gradient(0deg,#ffffff,#ffffff);
+	margin: 0;
+	padding: 0;
+	line-height: 60px;
+	box-shadow: 0px 2px 5px 1px rgba(221, 18, 18, 0.27);
+}
+.nav-header a{
+	text-decoration: none;
+}
+.nav-logo{
+	color: #fff;
+    padding: 0;
+    height: 59px;
+    position: relative;
+    z-index: 2000;
+    overflow: hidden
+}
+
+
+.nav-header p{
+	font-weight: bold;
+	margin: 0px 20px 0px 0px;
+	cursor: pointer;
+}
+
+.nav-logo img{
+	height: 50px;
+	margin: 0px 0px 0px 10px;
+}
+
+.background{
+	width: 350px;
+	margin: 0% auto;
+	text-align: center;
+	background-color: gray;
+	border-radius: 10px;
+	height: 350px;
+	position: absolute;
+	margin-left: 505px;
+	margin-top: 100px;
+	box-shadow: 0 12px 16px -6px #000;
+}
+.background img{
+	width: 95px;
+	height: 100px;
+	margin-top: -60px;
+	margin-bottom: 55px;
+	border-radius: 10px;
+}
+input{
+	border-radius: 10px;
+	height: 41px;
+	width: 247px;
+	margin-bottom: 20px;
+	padding-left: 31px;
+}
+.form-input::before{
+	content:"\f023";
+	position: absolute;
+	font-family: "FontAwesome";
+	color: black;
+	padding-left: 5px;
+	padding-top: 7px;
+	font-size: 30px;
+}
+.form-input:last-child::before{
+	 content: "\f007";
+}
+button{
+	outline: none;
+    background-color: black;
+    color: #ccc;
+    padding: 5px 10px;
+    margin-top: auto;
+    cursor: pointer;
+    width: 273px;
+    height: 45px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 10px; 
+}
+.copyright{
+	color: #fff;
+	text-align: center;
+}
+.forgot {
+	font-size: 14px;
+	margin-top: 12px;
+}
