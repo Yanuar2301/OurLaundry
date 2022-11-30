@@ -1,25 +1,25 @@
 <?php
 error_reporting(0);
-$Tampil = "SELECT max(id) as MAXKODE FROM paket";
+$Tampil = "SELECT max(id) as MAXKODE FROM transaksi";
 $Query = $Connection->query($Tampil);
 foreach($Query as $data)
 {
 	$kode = $data['MAXKODE'];
-	$noUrut = (int) substr($kode, 2, 3);
+	$noUrut = (int) substr($kode, 2,2);
 	@$noUrut++;
-	$char = "DP";
+	$char = "T";
 	$Kos = $char . sprintf("%03s", $noUrut);
 }
 
-$id = $_POST['id'];
+$id_login = $_SESSION['id'];
+$id = $Kos;
 $id_outlet = $_POST['id_outlet'];
-$jenis = $_POST['jenis'];
-$nama_paket = $_POST['nama_paket'];
-$harga = $_POST['harga'];
+$id_member = $_POST['id_member'];
+$tgl = $_POST['tgl'];
 
 if (isset($_POST['Tambah']))
 {
-	$Query = "INSERT INTO paket VALUES ('$id', '$id_outlet', '$jenis', '$nama_paket', '$harga')";
+	$Query = "INSERT INTO transaksi VALUES ('Menunggu', '$id_outlet', 'Menunggu', '$id_member', '$tgl','Menunggu','Menunggu','Menunggu','Menunggu','$id_login')";
 	$Connection->exec($Query);
 	if ($Query)
 	{
@@ -33,7 +33,7 @@ if (isset($_POST['Tambah']))
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Okay !'
 		}).then((result) => {
-			window.location.href = '?hal=paket';
+			window.location.href = '?hal=transaksi';
 		})
 	</script>
 	<?php	
@@ -48,7 +48,7 @@ if (isset($_POST['Tambah']))
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Okay !'
 		}).then((result) => {
-			window.location.href = '?hal=paket&aksi=Tambah';
+			window.location.href = '?hal=transaksi&aksi=Tambah';
 		})
 	</script>
 	<?php
@@ -65,7 +65,7 @@ if (isset($_POST['Tambah']))
 						<h2 class="card-tittle">Tambah Data</h2>
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="?hal=KELAS" class="btn btn-sm btn-danger mb-3">
+						<a href="?hal=user" class="btn btn-sm btn-danger mb-3">
 							<i class="tim-icons tim-icons-lg icon-minimal-left"></i>
 							&nbsp;
 							KEMBALI
@@ -100,26 +100,28 @@ if (isset($_POST['Tambah']))
 								</select>
 							</div>
 
-							
-							<div class="form-group">
-								<label>Jenis</label>
-								<select class="form-control" name="jenis">
-									<option style="background: black;">-- Pilih Nama Jenis --</option>
-									<option value="kiloan" style="background: black;">Kiloan</option>
-									<option value="selimut" style="background: black;">Selimut</option>
-									<option value="bed_cover" style="background: black;">Bed Cover</option>
-									<option value="kaos" style="background: black;">Kaos</option>
-									<option value="lain" style="background: black;">Lain</option>
-									
-								</select>
-								<div class="form-group">
-								<label>Nama Paket</label>
-								<input type="text" placeholder="Nama Paket" class="form-control" name="nama_paket">
-							</div>
 
 							<div class="form-group">
-								<label>Harga</label>
-								<input type="" placeholder="Harga" class="form-control" name="harga">
+								<label>ID Member:</label>
+								<select class="form-control" name="id_member">
+									<option style="background: black;">-- Pilih ID Member --</option>
+									<?php  
+									$Query = "SELECT * FROM member WHERE id_login = '$id_login' ";
+									$Qry = $Connection->query($Query);
+									while($data = $Qry->fetch(PDO::FETCH_ASSOC))
+									{
+									?>
+									<option style="background: black;" value="<?php echo $data['id'] ?>"><?php echo $data['id'] . " | " . $data['nama']; ?></option>
+									<?php  
+									}
+									?>
+								</select>
+							</div>
+
+
+							<div class="form-group">
+								<label>Tanggal</label>
+								<input type="date" placeholder="Tanggal" class="form-control" name="tgl">
 							</div>
 
 							<input type="submit" class="btn btn-success mb-3 float-right" name="Tambah">

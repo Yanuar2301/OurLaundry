@@ -55,29 +55,22 @@ include "session.php";?>
 		            </a>
 		          </li>
 
-		          <li class="<?php echo	isset($_GET['hal']) && $_GET['hal'] == 'member' ? 'active' : ''; ?>">
+				  <li class="<?php echo	isset($_GET['hal']) && $_GET['hal'] == 'member' ? 'active' : ''; ?>">
 		            <a href="?hal=member">
 		              <i class=""></i>
-		              <p>Data Member</p>
+		              <p>Buat Member</p>
 		            </a>
 		          </li>
-
 		          <li class="<?php echo	isset($_GET['hal']) && $_GET['hal'] == 'outlet' ? 'active' : ''; ?>">
 		            <a href="?hal=outlet">
 		              <i class=""></i>
 		              <p>Data OUTLET</p>
 		            </a>
 		          </li>
-		          <li class="<?php echo	isset($_GET['hal']) && $_GET['hal'] == 'pekerja' ? 'active' : ''; ?>">
-		            <a href="?hal=pekerja">
-		              <i class=""></i>
-		              <p>DATA PEKERJA</p>
-		            </a>
-		          </li>
-				  <li class="<?php echo	isset($_GET['hal']) && $_GET['hal'] == 'transaksi' ? 'active' : ''; ?>">
+		          <li class="<?php echo	isset($_GET['hal']) && $_GET['hal'] == 'transaksi' ? 'active' : ''; ?>">
 		            <a href="?hal=transaksi">
 		              <i class=""></i>
-		              <p>DATA TRANSAKSI</p>
+		              <p>TRANSAKSI</p>
 		            </a>
 		          </li>
 		        </ul>
@@ -142,7 +135,7 @@ include "session.php";?>
         		</div>
         	</nav>
         	<div class="content">
-        		<?php include"Modules/Administrator/index.php"; ?>
+        		<?php include"Modules/User/index.php"; ?>
         	</div>
         </div>
 	</div>

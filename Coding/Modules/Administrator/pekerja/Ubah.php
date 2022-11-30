@@ -1,7 +1,7 @@
 <?php
 if (isset($_GET['id']))
 {
-	$Query = $Connection->query("SELECT * FROM paket WHERE id	 = '$_GET[id]'");
+	$Query = $Connection->query("SELECT * FROM pekerja WHERE id = '$_GET[id]'");
 	$data = $Query->fetch(PDO::FETCH_ASSOC);
 }
 ?>
@@ -15,7 +15,7 @@ if (isset($_GET['id']))
 						<h2 class="card-tittle">Ubah Data</h2>
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="?hal=paket" class="btn btn-sm btn-danger mb-3">
+						<a href="?hal=pekerja" class="btn btn-sm btn-danger mb-3">
 							<i class="tim-icons tim-icons-lg icon-minimal-left"></i>
 							&nbsp;
 							KEMBALI
@@ -32,7 +32,19 @@ if (isset($_GET['id']))
 								<input type="text" class="form-control" name="id" value="<?php echo $data['id']; ?>" readonly>
 							</div>
 							<div class="form-group">
-								<label>ID Outlet</label>
+								<label>Nama</label>
+								<input type="text" class="form-control" name="nama" value="<?php echo $data['nama']; ?>">
+							</div>
+							<div class="form-group">
+								<label>Username</label>
+								<input type="text" class="form-control" name="username" value="<?php echo $data['username']; ?>">
+							</div>
+							<div class="form-group">
+								<label>Password</label>
+								<input type="text" class="form-control" name="password" value="<?php echo $data['password']; ?>">
+							</div>
+							<div class="form-group">
+								<label>ID Outlet:</label>
 								<select class="form-control" name="id_outlet">
 								<option value="<?php echo $data['id_outlet']; ?>"><?php echo $data['id_outlet']; ?></option>
 									<?php  
@@ -47,29 +59,16 @@ if (isset($_GET['id']))
 									?>
 								</select>
 							</div>
-
 							<div class="form-group">
-								<label>Jenis</label>
-								<select class="form-control" name="jenis">
-									<option value="<?php echo $data['jenis'] ?>"><?php echo $data['jenis']; ?></option>
-								<option style="background: black;">-- Pilih Jenis --</option>	
-									<option value="kiloan" style="background: black;">Kiloan</option>
-									<option value="selimut" style="background: black;">Selimut</option>
-									<option value="bed_cover" style="background: black;">Bed Cover</option>
-									<option value="kaos" style="background: black;">Kaos</option>
-									<option value="lain" style="background: black;">lain</option>
-								</select>							
+								<label>Role</label>
+								<select class="form-control" name="role">
+									<option value="<?php echo $data['role'] ?>"><?php echo $data['role']; ?></option>
+								<option style="background: black;">-- Nama Role --</option>
+									<option value="admin" style="background: black;">Admin</option>
+									<option value="kasir" style="background: black;">Kasir</option>
+									<option value="owner" style="background: black;">Owner</option>
+								</select>
 							</div>
-							<div class="form-group">
-								<label>Nama Paket</label>
-								<input type="" placeholder="Nama Paket" class="form-control" name="nama_paket">
-							</div>
-
-							<div class="form-group">
-								<label>Harga</label>
-								<input type="" placeholder="Harga" class="form-control" name="harga">
-							</div>
-
 
 							<input type="submit" class="btn btn-success mb-4 float-left" name="Update">
 						</form>
@@ -82,18 +81,21 @@ if (isset($_GET['id']))
 <?php  
 error_reporting(0);
 $id = $_POST['id'];
+$nama = $_POST['nama'];
+$username = $_POST['username'];
+$password = $_POST['password'];
 $id_outlet = $_POST['id_outlet'];
-$jenis = $_POST['jenis'];
-$nama_paket = $_POST['nama_paket'];
-$harga = $_POST['harga'];
+$role = $_POST['role'];
 
 if (isset($_POST['Update']))
 {
-	$Querys = "UPDATE paket SET id = '$id',
+	$Querys = "UPDATE pekerja SET id = '$id',
+										 nama = '$nama',
+										 username = '$username',
+										 password = '$password',
 										 id_outlet = '$id_outlet',
-										 jenis = '$jenis',
-										 nama_paket = '$nama_paket',
-										 harga = '$harga'
+										 role = '$role'
+										 
 										 WHERE id = '$_GET[id]'";
 	$Connection->exec($Querys);
 	if ($Query)
@@ -108,7 +110,7 @@ if (isset($_POST['Update']))
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Okay !'
 		}).then((result) => {
-			window.location.href = '?hal=paket';
+			window.location.href = '?hal=pekerja';
 		})
 	</script>
 	<?php

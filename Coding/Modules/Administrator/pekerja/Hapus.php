@@ -1,8 +1,8 @@
 <?php  
-include "Koneksi.php";
+include "koneksi.php";
 if (isset($_GET['id']))
 {
-	$Hapus = "DELETE FROM detailtransaksi WHERE id = '$_GET[id]'";
+	$Hapus = "DELETE FROM pekerja WHERE id = '$_GET[id]'";
 	$Connection->exec($Hapus);
 
 	if ($Hapus)
@@ -17,7 +17,7 @@ if (isset($_GET['id']))
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Okay !'
 		}).then((result) => {
-			window.location.href = '?hal=detailtransaksi';
+			window.location.href = '?hal=pekerja';
 		})
 	</script>
 	<?php

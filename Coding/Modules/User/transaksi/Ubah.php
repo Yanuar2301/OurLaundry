@@ -1,8 +1,9 @@
 <?php
 if (isset($_GET['id']))
 {
-	$Query = $Connection->query("SELECT * FROM user WHERE id = '$_GET[id]'");
+	$Query = $Connection->query("SELECT * FROM transaksi WHERE id = '$_GET[id]'");
 	$data = $Query->fetch(PDO::FETCH_ASSOC);
+	$id_login = $_SESSION['id'];
 }
 ?>
 <div class="row">
@@ -15,7 +16,7 @@ if (isset($_GET['id']))
 						<h2 class="card-tittle">Ubah Data</h2>
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="?hal=user" class="btn btn-sm btn-danger mb-3">
+						<a href="?hal=transaksi" class="btn btn-sm btn-danger mb-3">
 							<i class="tim-icons tim-icons-lg icon-minimal-left"></i>
 							&nbsp;
 							KEMBALI
@@ -27,23 +28,8 @@ if (isset($_GET['id']))
 				<div class="row justify-content-center">
 					<div class="col-md-6">
 						<form method="POST">
-							<div class="form-group">
-								<label>ID:</label>
-								<input type="text" class="form-control" name="id" value="<?php echo $data['id']; ?>" readonly>
-							</div>
-							<div class="form-group">
-								<label>Nama</label>
-								<input type="text" class="form-control" name="nama" value="<?php echo $data['nama']; ?>">
-							</div>
-							<div class="form-group">
-								<label>Username</label>
-								<input type="text" class="form-control" name="username" value="<?php echo $data['username']; ?>">
-							</div>
-							<div class="form-group">
-								<label>Password</label>
-								<input type="text" class="form-control" name="password" value="<?php echo $data['password']; ?>">
-							</div>
-							<div class="form-group">
+							
+						<div class="form-group">
 								<label>ID Outlet:</label>
 								<select class="form-control" name="id_outlet">
 								<option value="<?php echo $data['id_outlet']; ?>"><?php echo $data['id_outlet']; ?></option>
@@ -59,17 +45,30 @@ if (isset($_GET['id']))
 									?>
 								</select>
 							</div>
+
+
 							<div class="form-group">
-								<label>Role</label>
-								<select class="form-control" name="role">
-									<option value="<?php echo $data['role'] ?>"><?php echo $data['role']; ?></option>
-								<option style="background: black;">-- Nama Role --</option>
-									<option value="admin" style="background: black;">Admin</option>
-									<option value="kasir" style="background: black;">Kasir</option>
-									<option value="owner" style="background: black;">Owner</option>
+								<label>ID Member:</label>
+								<select class="form-control" name="id_member">
+									<option style="background: black;">-- Pilih ID Member --</option>
+									<?php  
+									$Query = "SELECT * FROM member WHERE id_login = '$id_login'";
+									$Qry = $Connection->query($Query);
+									while($data = $Qry->fetch(PDO::FETCH_ASSOC))
+									{
+									?>
+									<option style="background: black;" value="<?php echo $data['id'] ?>"><?php echo $data['id'] . " | " . $data['nama']; ?></option>
+									<?php  
+									}
+									?>
 								</select>
 							</div>
 
+
+							<div class="form-group">
+								<label>Tanggal</label>
+								<input type="date" class="form-control" name="tgl" value="<?php echo $data['tgl']; ?>">
+							</div>
 							<input type="submit" class="btn btn-success mb-4 float-left" name="Update">
 						</form>
 					</div>
@@ -80,23 +79,15 @@ if (isset($_GET['id']))
 </div>
 <?php  
 error_reporting(0);
-$id = $_POST['id'];
-$nama = $_POST['nama'];
-$username = $_POST['username'];
-$password = $_POST['password'];
+
 $id_outlet = $_POST['id_outlet'];
-$role = $_POST['role'];
+$id_member = $_POST['id_member'];
+$tgl = $_POST['tgl'];
+
 
 if (isset($_POST['Update']))
 {
-	$Querys = "UPDATE user SET id = '$id',
-										 nama = '$nama',
-										 username = '$username',
-										 password = '$password',
-										 id_outlet = '$id_outlet',
-										 role = '$role'
-										 
-										 WHERE id = '$_GET[id]'";
+	$Querys = "UPDATE `transaksi` SET `id_outlet`='$id_outlet',`id_member`='$id_member', `tgl_masuk`='$tgl' WHERE `id` = '$_GET[id]'";
 	$Connection->exec($Querys);
 	if ($Query)
 	{
@@ -110,7 +101,7 @@ if (isset($_POST['Update']))
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Okay !'
 		}).then((result) => {
-			window.location.href = '?hal=user';
+			window.location.href = '?hal=transaksi';
 		})
 	</script>
 	<?php

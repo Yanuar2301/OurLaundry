@@ -11,7 +11,7 @@ if (isset($_GET['id']))
 			<div class="card-header">
 				<div class="row">
 					<div class="col-sm-6 text-left">
-						
+						<h5 class="card-category">SMK TI AIRLANGGA</h5>
 						<h2 class="card-tittle">Ubah Data</h2>
 					</div>
 					<div class="col-sm-6 text-right">

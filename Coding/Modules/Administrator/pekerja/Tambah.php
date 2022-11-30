@@ -1,25 +1,26 @@
 <?php
 error_reporting(0);
-$Tampil = "SELECT max(id) as MAXKODE FROM detailtransaksi";
+$Tampil = "SELECT max(id) as MAXKODE FROM pekerja";
 $Query = $Connection->query($Tampil);
 foreach($Query as $data)
 {
 	$kode = $data['MAXKODE'];
-	$noUrut = (int) substr($kode, 2, 3);
+	$noUrut = (int) substr($kode, 2,2);
 	@$noUrut++;
-	$char = "DT";
+	$char = "U";
 	$Kos = $char . sprintf("%03s", $noUrut);
 }
 
 $id = $_POST['id'];
-$id_transaksi = $_POST['id_transaksi'];
-$id_paket = $_POST['id_paket'];
-$qty = $_POST['qty'];
-$keterangan = $_POST['keterangan'];
+$nama = $_POST['nama'];
+$username = $_POST['username'];
+$id_outlet = $_POST['id_outlet'];
+$role = $_POST['role'];
 
 if (isset($_POST['Tambah']))
 {
-	$Query = "INSERT INTO detailtransaksi VALUES ('$id', '$id_transaksi', '$id_paket', '$qty', '$keterangan')";
+	
+	$Query = "INSERT INTO pekerja VALUES ('$id', '$nama', '$id_outlet','$role')";
 	$Connection->exec($Query);
 	if ($Query)
 	{
@@ -33,7 +34,7 @@ if (isset($_POST['Tambah']))
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Okay !'
 		}).then((result) => {
-			window.location.href = '?hal=detailtransaksi';
+			window.location.href = '?hal=pekerja';
 		})
 	</script>
 	<?php	
@@ -48,7 +49,7 @@ if (isset($_POST['Tambah']))
 			confirmButtonColor: '#3085d6',
 			confirmButtonText: 'Okay !'
 		}).then((result) => {
-			window.location.href = '?hal=detailtransaksi&aksi=Tambah';
+			window.location.href = '?hal=pekerja&aksi=Tambah';
 		})
 	</script>
 	<?php
@@ -65,7 +66,7 @@ if (isset($_POST['Tambah']))
 						<h2 class="card-tittle">Tambah Data</h2>
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="?hal=detailtransaksi" class="btn btn-sm btn-danger mb-3">
+						<a href="?hal=pekerja" class="btn btn-sm btn-danger mb-3">
 							<i class="tim-icons tim-icons-lg icon-minimal-left"></i>
 							&nbsp;
 							KEMBALI
@@ -83,49 +84,34 @@ if (isset($_POST['Tambah']))
 							</div>
 
 							<div class="form-group">
-								<label>ID Transaksi</label>
-								<select class="form-control" name="id_transaksi">
-									<option style="background: black;">-- Pilih ID Transaksi --</option>
+								<label>Nama</label>
+								<input type="text" placeholder="Nama" class="form-control" name="nama">
+							</div>
+							<div class="form-group">
+								<label>ID Outlet:</label>
+								<select class="form-control" name="id_outlet">
+									<option style="background: black;">-- Pilih ID Outlet --</option>
 									<?php  
-									$Query = "SELECT * FROM transaksi";
+									$Query = "SELECT * FROM outlet";
 									$Qry = $Connection->query($Query);
 									while($data = $Qry->fetch(PDO::FETCH_ASSOC))
 									{
 									?>
-									<option style="background: black;" value="<?php echo $data['id'] ?>"><?php echo $data['id']; ?></option>
+									<option style="background: black;" value="<?php echo $data['id'] ?>"><?php echo $data['id'] . " | " . $data['nama']; ?></option>
 									<?php  
 									}
 									?>
 								</select>
 							</div>
-
-
 							<div class="form-group">
-								<label>ID Paket</label>
-								<select class="form-control" name="id_paket">
-									<option style="background: black;">-- Pilih ID Paket --</option>
-									<?php  
-									$Query = "SELECT * FROM paket";
-									$Qry = $Connection->query($Query);
-									while($data = $Qry->fetch(PDO::FETCH_ASSOC))
-									{
-									?>
-									<option style="background: black;" value="<?php echo $data['id'] ?>"><?php echo $data['id'] . " | " . $data['nama_paket']; ?></option>
-									<?php  
-									}
-									?>
+								<label>Role</label>
+								<select class="form-control" name="role">
+									<option style="background: black;">-- Pilih Role --</option>
+									<option value="admin" style="background: black;">Admin</option>
+									<option value="kasir" style="background: black;">Kasir</option>
+									<option value="owner" style="background: black;">Owner</option>
+
 								</select>
-							</div>
-
-
-							<div class="form-group">
-								<label>QTY</label>
-								<input type="text" placeholder="QTY" class="form-control" name="qty">
-							</div>
-
-							<div class="form-group">
-								<label>Nomor Keterangan</label>
-								<input type="text" placeholder="Keterangan" class="form-control" name="keterangan">
 							</div>
 							<input type="submit" class="btn btn-success mb-3 float-right" name="Tambah">
 						</form>

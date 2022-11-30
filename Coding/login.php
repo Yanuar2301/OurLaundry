@@ -11,17 +11,30 @@
 	if(isset($_POST['login'])) {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-		$sql_login = mysqli_query($koneksi, "SELECT * FROM `admin` WHERE username = '$username' AND password = '$password'");
-
-		if(mysqli_num_rows($sql_login)>0) {
-			$row_akun = mysqli_fetch_array($sql_login);
-			$_SESSION['id'] = $row_akun['id'];
-			$_SESSION['username'] = $row_akun['username'];
-			header("location: index.php");
+		if($username === "Admin" && $password === "Admin123"){
+			$sql_login = mysqli_query($koneksi, "SELECT * FROM `login` WHERE username = '$username' AND password = '$password'");
+			if(mysqli_num_rows($sql_login)>0) {
+				$row_akun = mysqli_fetch_array($sql_login);
+				$_SESSION['id'] = $row_akun['id'];
+				$_SESSION['username'] = $row_akun['username'];
+				header("location: index.php");
+			}
+		}
+		else if($username != "Admin" && $password != "Admin123"){
+			$sql_login = mysqli_query($koneksi, "SELECT * FROM `login` WHERE username = '$username' AND password = '$password'");
+			if(mysqli_num_rows($sql_login)>0) {
+				$row_akun = mysqli_fetch_array($sql_login);
+				$_SESSION['id'] = $row_akun['id'];
+				$_SESSION['nama'] = $row_akun['nama'];
+				header("location: user.php");
 			}else{
 				header("location: login.php?login-gagal");
 			}
 		}
+		else{
+			header("location: login.php?login-gagal");
+		}
+	}
 
 
 
@@ -43,7 +56,7 @@ include ('session.php');
 <head>
 	<meta charset="UTF-8">
 	<title>LOGIN</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/Login.css?6">
+	<link rel="stylesheet" type="text/css" href="assets/css/Login.css?4">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link rel="icon" href="assets/img/transaksi.png" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -74,6 +87,7 @@ include ('session.php');
 			</tr>
 		<?php }?>
 			<button type="submit" name="login"><i class="fa fa-sign-in"></i>&nbsp;Masuk</button>
+			<p class="login-register-text">Tidak Mempunyai Akun? <a href="register.php">Registrasi disini</a>.</p>
 		</form>
 		</div>
 	</section>

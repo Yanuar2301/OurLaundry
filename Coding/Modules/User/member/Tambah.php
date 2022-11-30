@@ -11,6 +11,7 @@ foreach($Query as $data)
 	$Kos = $char . sprintf("%03s", $noUrut);
 }
 
+$id_login = $_SESSION['id'];
 $id = $_POST['id'];
 $nama = $_POST['nama'];
 $alamat = $_POST['alamat'];
@@ -19,7 +20,7 @@ $tlp = $_POST['tlp'];
 
 if (isset($_POST['Tambah']))
 {
-	$Query = "INSERT INTO member VALUES ('$id', '$nama', '$alamat', '$jenis_kelamin', '$tlp')";
+	$Query = "INSERT INTO member VALUES ('$id', '$nama', '$alamat', '$jenis_kelamin', '$tlp', '$id_login')";
 	$Connection->exec($Query);
 	if ($Query)
 	{
@@ -61,7 +62,7 @@ if (isset($_POST['Tambah']))
 			<div class="card-header">
 				<div class="row">
 					<div class="col-sm-6 text-left">
-						
+						<h5 class="card-category">SMK TI AIRLANGGA</h5>
 						<h2 class="card-tittle">Tambah Data</h2>
 					</div>
 					<div class="col-sm-6 text-right">

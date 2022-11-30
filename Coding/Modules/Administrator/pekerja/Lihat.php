@@ -4,27 +4,27 @@
 			<div class="card-header">
 				<div class="row">
 					<div class="col-sm-6 text-left">
-						<h2 class="card-tittle">DATA PAKET</h2>
+						<h2 class="card-tittle">PEKERJA</h2>
 						
 
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="?hal=paket&aksi=Tambah" class="btn btn-sm btn-success mb-3">
+						<a href="?hal=pekerja&aksi=Tambah" class="btn btn-sm btn-success mb-3">
 							<i class="tim-icons tim-icons-lg icon-simple-add"></i>
 							&nbsp;
 							TAMBAH DATA
 						</a>
 
 				<div class="col-sm-12 text-right">
-						<a href="laporan/paket/laporan_print.php" onclick="print_d()" class="btn btn-sm btn-success mb-5">
+						<a href="laporan/pekerja/laporan_print.php" onclick="print_d()" class="btn btn-sm btn-success mb-5">
 							<i class="fa fa-print"></i></i>&nbsp;&nbsp;PRINT</a>
-						<a href="laporan/paket/laporan_pdf.php" onclick="print_d()" class="btn btn-sm btn-success mb-5">
+						<a href="laporan/pekerja/laporan_pdf.php" onclick="print_d()" class="btn btn-sm btn-success mb-5">
 							<i class="fa fa-print"></i></i>&nbsp;&nbsp;PDF</a>
-						<a href="laporan/paket/laporan_excel.php" onclick="print_d()" class="btn btn-sm btn-success mb-5">
+						<a href="laporan/pekerja/laporan_excel.php" onclick="print_d()" class="btn btn-sm btn-success mb-5">
 							<i class="fa fa-print"></i></i>&nbsp;&nbsp;EXCEL</a>
 				</div>
 						<form method="POST">
-							<input type="text" placeholder="Masukan Nama Jenis" class="form-control w-50 float-right" name="kata">
+							<input type="text" placeholder="Masukan Nama Pekerja" class="form-control w-50 float-right" name="kata">
 							<button class="btn btn-success btn-sm w-50" name="cari">
 								<i class="tim-icons tim-icons-lg icon-tap-02"></i>
 							</button>
@@ -39,10 +39,9 @@
 						<tr>
 							<th>NO</th>
 							<th>ID</th>
+							<th>NAMA</th>
 							<th>ID Outlet</th>
-							<th>Jenis</th>
-							<th>Nama Paket</th>
-							<th>Harga</th>
+							<th>Role</th>
 							<th>
 								<i class="tim-icons tim-icons-lg icon-settings"></i>
 							</th>
@@ -53,9 +52,9 @@
 						if (isset($_POST['cari']))
 						{
 							$Keywoard = $_POST['kata'];
-							$Query = "SELECT * FROM paket WHERE nama_paket LIKE '%$Keywoard%'";
+							$Query = "SELECT * FROM pekerja WHERE nama LIKE '%$Keywoard%'";
 						} else {
-							$Query = "SELECT * FROM paket";
+							$Query = "SELECT * FROM pekerja";
 						}
 						$No = 1;
 						$Qry = $Connection->query($Query);
@@ -65,16 +64,15 @@
 						<tr>
 							<td><?php echo $No++; ?></td>
 							<td><?php echo $data['id']; ?></td>
+							<td><?php echo ucfirst($data['nama']); ?></td>
 							<td><?php echo ucfirst($data['id_outlet']); ?></td>
-							<td><?php echo ucfirst($data['jenis']); ?></td>
-							<td><?php echo ucfirst($data['nama_paket']); ?></td>
-							<td><?php echo ucfirst($data['harga']); ?></td>
+							<td><?php echo ucfirst($data['role']); ?></td>
 							<td>
-								<a href="?hal=paket&aksi=Ubah&id=<?php echo $data['id']; ?>" class="btn btn-sm btn-warning">
+								<a href="?hal=pekerja&aksi=Ubah&id=<?php echo $data['id']; ?>" class="btn btn-sm btn-warning">
 									<i class="tim-icons tim-icons-lg icon-pencil"></i>
 								</a>
 								&nbsp;
-								<a href="?hal=paket&aksi=Hapus&id=<?php echo $data['id']; ?>" class="btn btn-sm btn-danger">
+								<a href="?hal=pekerja&aksi=Hapus&id=<?php echo $data['id']; ?>" class="btn btn-sm btn-danger">
 									<i class="tim-icons tim-icons-lg icon-trash-simple"></i>
 								</a>
 							</td>

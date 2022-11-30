@@ -9,12 +9,6 @@
 
 					</div>
 					<div class="col-sm-6 text-right">
-						<a href="?hal=transaksi&aksi=Tambah" class="btn btn-sm btn-success mb-3">
-							<i class="tim-icons tim-icons-lg icon-simple-add"></i>
-							&nbsp;
-							TAMBAH DATA
-						</a>
-
 				<div class="col-sm-12 text-right">
 						<a href="laporan/transaksi/laporan_print.php" onclick="print_d()" class="btn btn-sm btn-success mb-5">
 							<i class="fa fa-print"></i></i>&nbsp;&nbsp;PRINT</a>
@@ -47,20 +41,21 @@
 							<th>Tanggal Bayar</th>
 							<th>Status</th>
 							<th>Di Bayar</th>
-							<th>ID User</th>
 							<th>
 								<i class="tim-icons tim-icons-lg icon-settings"></i>
 							</th>
+							
 						</tr>
 					</thead>
 					<tbody align="center">
 						<?php
+						$id_login = $_SESSION['id'];
 						if (isset($_POST['cari']))
 						{
 							$Keywoard = $_POST['kata'];
 							$Query = "SELECT * FROM transaksi WHERE id LIKE '%$Keywoard%'";
 						} else {
-							$Query = "SELECT * FROM transaksi";
+							$Query = "SELECT * FROM transaksi ";
 						}
 						$No = 1;
 						$Qry = $Connection->query($Query);
@@ -78,16 +73,13 @@
 							<td><?php echo ucfirst($data['tgl_bayar']); ?></td>
 							<td><?php echo ucfirst($data['status']); ?></td>
 							<td><?php echo ucfirst($data['dibayar']); ?></td>
-							<td><?php echo ucfirst($data['id_user']); ?></td>
 							<td>
 								<a href="?hal=transaksi&aksi=Ubah&id=<?php echo $data['id']; ?>" class="btn btn-sm btn-warning">
 									<i class="tim-icons tim-icons-lg icon-pencil"></i>
 								</a>
-								&nbsp;
-								<a href="?hal=transaksi&aksi=Hapus&id=<?php echo $data['id']; ?>" class="btn btn-sm btn-danger">
-									<i class="tim-icons tim-icons-lg icon-trash-simple"></i>
-								</a>
+								
 							</td>
+							
 						</tr>
 						<?php  
 						}
